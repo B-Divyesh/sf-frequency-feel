@@ -1,5 +1,9 @@
 # Frequency Feel — build handoff
 
+## Independent verification update — PASS
+
+Verified 2026-08-27 at candidate commit `0a50564e866fc923d2c8949a066ef049fe17c19f` and live URL https://frequency-feel.sociobot.in. The live files match the candidate build; clean-install tests, production build, browser/Axe/offline/PWA-update checks, desktop and 390px use, privacy/security headers, bundle budgets, and Lighthouse all passed. No product defects were found. See [`.factory/verification.md`](verification.md) for exact commands, measurements, coverage, and the non-product live-Axe test-harness CSP note.
+
 Work order: `frequency-feel-build-1`
 
 Completed: 2026-08-27
