@@ -1,0 +1,30 @@
+{
+  "slug": "frequency-feel",
+  "title": "Frequency Feel",
+  "territory": "games-creative",
+  "user": "A beginner sound designer who wants to hear and see what a filter/EQ setting changes before committing it to a track or game effect.",
+  "evidence": [
+    {
+      "url": "https://news.ycombinator.com/item?id=49271208",
+      "date": "2026-08-12",
+      "quote_or_summary": "A metronome maker argues that timer-based implementations are wrong, underlining that seemingly basic audio tools have audible technical consequences."
+    },
+    {
+      "url": "https://github.com/godotengine/godot-proposals/issues/15429",
+      "date": "2026-08-24",
+      "quote_or_summary": "A Godot user requests a graph for filter/EQ effects because dB descriptions do not make precise frequency behavior clear, including concern about uncomfortable headphone frequencies."
+    }
+  ],
+  "recurrence": "Both 2026 sources point to a persistent learning failure: audio parameters are numeric but their outcomes are not legible. Severity is high where bad settings create discomfort or undermine timing.",
+  "current_workaround": "Trial-and-error, external EQ charts, spectrum analyzers, and repeatedly rendering/listening to clips.",
+  "incumbents_and_gap": "DAW analyzers and EQ plugins show advanced graphs but generally do not teach with controlled A/B examples; game-engine inspectors expose parameters with little auditory context. The gap is an interactive, local explainer.",
+  "smallest_useful_product": "Offline interactive page with a safe synthetic sound, draggable filter/EQ controls, synchronized frequency response, before/after loudness-matched playback, and shareable parameter links. Non-goals: mastering, uploading user audio, medical/hearing claims, and AI mixing.",
+  "success_measure": "In a five-question before/after test, 70% of first-time users correctly predict the direction of a filter change after using the tool for five minutes.",
+  "artifact_class": "static-web",
+  "monetization": "free — educational reach and embedding are more valuable than a paywall, and v1 has no operating cost.",
+  "constraints": "Use conservative playback defaults, a visible volume warning, synthesized/original audio only, and no claims about preventing hearing damage.",
+  "est_build_effort": "S",
+  "why_distinct": "It makes signal behavior tangible through controlled listening rather than being another generic visualizer or audio effect rack.",
+  "confidence": 4,
+  "state": "BUILT"
+}
