@@ -1,0 +1,9 @@
+{
+  "asset": "hero-frequency-line.png",
+  "generated_at": "2026-08-27",
+  "tool": "/opt/fleet/lib/gen-image.sh",
+  "deployment": "factory-image",
+  "size": "1536x1024",
+  "quality": "high",
+  "prompt": "A landscape 1930s art-deco transit poster illustration of an abstract frequency railway. Warm ivory waveform rails begin as broad low waves on the left, pass through one monumental geometric filter gate at the center, and emerge as fine treble waves toward a brass-yellow speaker sun on the right. Tiny coral signal dots travel along the route. Flat screen-printed paper shapes, precise symmetric geometry, bold stepped arches, subtle analog ink grain, strong negative space. Restricted palette of midnight navy, warm ivory, aged brass yellow, coral red, and one small sea-glass green accent. Orthographic poster composition, no photographic depth. No text, no letters, no numbers, no watermark, no logos, no people, no brands, no gradients, no photorealism, no modern UI, no headphones."
+}
