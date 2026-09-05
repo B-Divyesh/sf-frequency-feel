@@ -1,5 +1,11 @@
-const CACHE = 'frequency-feel-v2';
-const SHELL = ['/assets/hero-frequency-line.webp', '/assets/hero-frequency-line-720.webp', '/favicon.svg'];
+const CACHE = 'frequency-feel-v3';
+const SHELL = [
+  '/assets/hero-frequency-line.webp',
+  '/assets/hero-frequency-line-720.webp',
+  '/assets/sf-frequency-feel-social.webp',
+  '/assets/sf-frequency-feel-apple-touch.png',
+  '/favicon.svg',
+];
 
 async function precacheShell() {
   const cache = await caches.open(CACHE);
