@@ -1,5 +1,18 @@
 # Frequency Feel — build handoff
 
+## Review update — FAIL
+
+Independent review on 2026-09-05 found 6 findings and 14 untested public-claim
+groups. The live product byte-matches implementation candidate
+`11def29e5c2c6ec6cce9c8fb9d1d85e52992c727`; the documentation reviewed before
+this update was `1e442f2cb31208952a4314a78a389b07d8a69dd5`. Clean install,
+unit tests, build, browser test, live interaction, Axe, reduced-motion,
+privacy-request, mobile, and offline checks passed. It must not be accepted:
+the required demo sandbox and claims manifest/tests are absent, and the review
+also found plain-language, 404, metadata/skeleton, and copy-audit gaps. See
+[`.factory/review-1.md`](review-1.md) for the full evidence and remediation
+list.
+
 ## Independent verification update — PASS
 
 Verified 2026-08-27 at candidate commit `0a50564e866fc923d2c8949a066ef049fe17c19f` and live URL https://frequency-feel.sociobot.in. The live files match the candidate build; clean-install tests, production build, browser/Axe/offline/PWA-update checks, desktop and 390px use, privacy/security headers, bundle budgets, and Lighthouse all passed. No product defects were found. See [`.factory/verification.md`](verification.md) for exact commands, measurements, coverage, and the non-product live-Axe test-harness CSP note.
