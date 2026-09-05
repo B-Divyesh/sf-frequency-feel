@@ -1,4 +1,4 @@
-# Frequency Feel — repair handoff
+# Frequency Feel — repair and verification handoff
 
 Completed locally: 5 September 2026
 
@@ -9,12 +9,10 @@ Completed locally: 5 September 2026
 - Base reviewed implementation: `11def2901ed5c453350b77759608983ebfa8af91`
 - Earlier review/documentation commits: `1e442f2` and `59eda3d`
 - Deployment: static `dist/` output to the existing Frequency Feel Static Web
-  App configuration. The implementation commit was pushed to `main` on 5
-  September. At the final cold check the HTTPS site still served the prior
-  `index-DmQhsfAE.js` candidate and old title. The configured CLI recognizes
-  the in-scope `sf-frequency-feel` app and `dist/`, but no product deployment
-  token is available in the durable repository configuration. No credentials
-  were invented or read from another service.
+  App configuration. Independent verification on 5 September found the repair
+  live: `index-DOmolNRf.js`, `index-2GrS34OU.css`, the service worker, images,
+  metadata, and designed 404 byte-match a fresh build of `9fad0f7`. No
+  deployment action or credential access was needed.
 
 ## What changed
 
@@ -85,6 +83,34 @@ Axe and reports no serious or critical findings.
   first-time-user testing. No behavioral analytics were added.
 - The researched brief is free; no paid offer exists, so no billing metadata
   or unavailable checkout dependency is needed.
-- The branch push is complete. If the existing static deployment controller is
-  delayed, use its durable product deployment configuration to publish the
-  already-built `dist/` artifact; do not introduce a new target or credentials.
+- The repair deployment is live and byte-matches the implementation candidate.
+  No further deployment action is needed for this candidate.
+
+## Independent verification 2
+
+Verification date: 5 September 2026. Report:
+`.factory/verification-2.md`.
+
+**Verdict: FAIL — 4 findings, 1 incompletely tested claim.** Product code was
+not changed during verification.
+
+- High: Reset demo changes the UI to Paused but leaves an active audio loop
+  running. Leaving the demo then removes the control that could stop that loop.
+- Medium: phone header links are 34 px high on app routes and 36 px high on the
+  404, below the required 44 px touch size. The footer wordmark is also short.
+- Medium: starting playback with the keyboard moves focus from the play/pause
+  button to the body.
+- Low: the `compare-filtered-sound` claim command checks selected labels but
+  does not start or observe audio. Independent instrumentation showed the live
+  dry/filtered routing is correct, so this is a regression-coverage gap.
+
+Clean `npm ci`, unit tests, build, browser checks, and all 11 individual claim
+commands passed. Live Axe reported no violations across home, demo, privacy,
+terms, and 404. Offline reload, privacy requests, invalid and boundary links,
+route titles, reduced motion, keyboard controls, and designed HTTP 404 behavior
+otherwise passed. Lighthouse scored 100/100/100/100 with LCP 1.2 s and CLS 0.
+
+Next repair should pause the existing audio object before resetting state,
+preserve focus on the playback toggle, increase every phone link target to at
+least 44 × 44 CSS px, and make the A/B claim test observe actual Web Audio
+routing while playback is active.
