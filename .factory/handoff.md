@@ -5,12 +5,16 @@ Completed locally: 5 September 2026
 ## Release identity
 
 - Implementation commit: `9fad0f76ea8a93f40b441a34b06e2fee74de2bd5`
+- Documentation record commit: `feb8bd29f22ef2a2e2858fbc96631aef081bddaa`
 - Base reviewed implementation: `11def2901ed5c453350b77759608983ebfa8af91`
 - Earlier review/documentation commits: `1e442f2` and `59eda3d`
 - Deployment: static `dist/` output to the existing Frequency Feel Static Web
   App configuration. The implementation commit was pushed to `main` on 5
-  September. The live cold check is recorded below once the branch-driven
-  product deployment updates.
+  September. At the final cold check the HTTPS site still served the prior
+  `index-DmQhsfAE.js` candidate and old title. The configured CLI recognizes
+  the in-scope `sf-frequency-feel` app and `dist/`, but no product deployment
+  token is available in the durable repository configuration. No credentials
+  were invented or read from another service.
 
 ## What changed
 
