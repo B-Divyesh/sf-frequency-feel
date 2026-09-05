@@ -1,0 +1,79 @@
+[
+  {
+    "id": "demo-sandbox",
+    "claim": "Try it with sample data opens a filled low-pass demo that can reset without changing real session data.",
+    "where": "landing action, demo banner, README",
+    "test": "npm run test:claims -- --grep @claim:demo-sandbox",
+    "sandbox": "fresh browser context; enter /demo through the landing action; change a sample setting; reset; verify a real-session sentinel is unchanged"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "Works offline after the first visit.",
+    "where": "landing facts, README, privacy",
+    "test": "npm run test:claims -- --grep @claim:offline-reload",
+    "sandbox": "fresh browser context; visit /demo; wait for service worker control; set offline; reload the populated demo"
+  },
+  {
+    "id": "local-audio-privacy",
+    "claim": "Sound is generated in your browser. No upload or microphone is used.",
+    "where": "landing facts, privacy and limits, README",
+    "test": "npm run test:claims -- --grep @claim:local-audio-privacy",
+    "sandbox": "fresh demo context; monitor media access and all requests while starting the loop; assert no microphone call, cookies, or cross-origin request"
+  },
+  {
+    "id": "no-tracking",
+    "claim": "No analytics, advertising requests, cookies, or collected filter settings are used.",
+    "where": "privacy page, README",
+    "test": "npm run test:claims -- --grep @claim:no-tracking",
+    "sandbox": "fresh demo context; record the full sample flow request log and cookie jar"
+  },
+  {
+    "id": "opt-in-playback",
+    "claim": "Sound starts only when you press Play and starts at 18% in-app volume.",
+    "where": "landing facts, terms, README",
+    "test": "npm run test:claims -- --grep @claim:opt-in-playback",
+    "sandbox": "fresh demo context; assert initial Play state and 18% readout; press Play and assert successful active state"
+  },
+  {
+    "id": "compare-filtered-sound",
+    "claim": "Compare original and filtered sound.",
+    "where": "listening lab, README",
+    "test": "npm run test:claims -- --grep @claim:compare-filtered-sound",
+    "sandbox": "fresh demo context; select Original then Filtered and assert the announced selected state"
+  },
+  {
+    "id": "filter-controls",
+    "claim": "Choose low-pass, high-pass, or bell EQ and see the response map update.",
+    "where": "listening lab, README",
+    "test": "npm run test:claims -- --grep @claim:filter-controls",
+    "sandbox": "fresh demo context; select each filter and assert its observable response map or control outcome"
+  },
+  {
+    "id": "keyboard-response-map",
+    "claim": "Move the response-map frequency control with Arrow, Home, and End.",
+    "where": "response-map hint, README",
+    "test": "npm run test:claims -- --grep @claim:keyboard-response-map",
+    "sandbox": "fresh demo context; focus the map handle and use Home, End, and ArrowLeft"
+  },
+  {
+    "id": "shareable-settings",
+    "claim": "Copy a link to the current filter setting. Invalid shared values recover to a safe default.",
+    "where": "share button, warning, README",
+    "test": "npm run test:claims -- --grep @claim:shareable-settings",
+    "sandbox": "fresh demo context with clipboard permission; copy a bell-EQ setting; open malformed parameters and verify recovery"
+  },
+  {
+    "id": "free-core",
+    "claim": "Free to use. No account is required for the core learning flow.",
+    "where": "landing facts, terms, README",
+    "test": "npm run test:claims -- --grep @claim:free-core",
+    "sandbox": "fresh phone-sized context; complete playback and filter changes from /demo and assert no account field or popup"
+  },
+  {
+    "id": "artwork-disclosure",
+    "claim": "Artwork was generated for this project.",
+    "where": "footer",
+    "test": "npm run test:claims -- --grep @claim:artwork-disclosure",
+    "sandbox": "fresh browser context; reach the footer and assert the disclosure is visible"
+  }
+]

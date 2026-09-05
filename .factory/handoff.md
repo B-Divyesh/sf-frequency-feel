@@ -1,94 +1,86 @@
-# Frequency Feel — build handoff
+# Frequency Feel — repair handoff
 
-## Review update — FAIL
+Completed locally: 5 September 2026
 
-Independent review on 2026-09-05 found 6 findings and 14 untested public-claim
-groups. The live product byte-matches implementation candidate
-`11def29e5c2c6ec6cce9c8fb9d1d85e52992c727`; the documentation reviewed before
-this update was `1e442f2cb31208952a4314a78a389b07d8a69dd5`. Clean install,
-unit tests, build, browser test, live interaction, Axe, reduced-motion,
-privacy-request, mobile, and offline checks passed. It must not be accepted:
-the required demo sandbox and claims manifest/tests are absent, and the review
-also found plain-language, 404, metadata/skeleton, and copy-audit gaps. See
-[`.factory/review-1.md`](review-1.md) for the full evidence and remediation
-list.
+## Release identity
 
-## Independent verification update — PASS
+- Implementation commit: `9fad0f76ea8a93f40b441a34b06e2fee74de2bd5`
+- Base reviewed implementation: `11def2901ed5c453350b77759608983ebfa8af91`
+- Earlier review/documentation commits: `1e442f2` and `59eda3d`
+- Deployment: static `dist/` output to the existing Frequency Feel Static Web
+  App configuration. The implementation commit was pushed to `main` on 5
+  September. The live cold check is recorded below once the branch-driven
+  product deployment updates.
 
-Verified 2026-08-27 at candidate commit `0a50564e866fc923d2c8949a066ef049fe17c19f` and live URL https://frequency-feel.sociobot.in. The live files match the candidate build; clean-install tests, production build, browser/Axe/offline/PWA-update checks, desktop and 390px use, privacy/security headers, bundle budgets, and Lighthouse all passed. No product defects were found. See [`.factory/verification.md`](verification.md) for exact commands, measurements, coverage, and the non-product live-Axe test-harness CSP note.
+## What changed
 
-Work order: `frequency-feel-build-1`
+- Added a first-screen **Try it with sample data** action. `/demo` and
+  `?demo=1` start the populated 850 Hz low-pass sample in a `demo:` local
+  storage namespace. The persistent banner identifies sample data and offers
+  Reset demo and Start for real. Leaving the demo removes its namespace.
+- Rewrote the landing copy around the job, audience, and first action. The
+  site now uses plain section names and a three-step How it works section.
+- Added `.factory/claims.json` plus 11 isolated, outcome-based browser checks.
+  They exercise demo isolation, offline reload, local audio/privacy, tracking,
+  opt-in 18% playback, comparison, filters, keyboard response-map use, setting
+  links and recovery, free core access, and artwork disclosure.
+- Added a designed HTTP 404 page and production routing for `/demo`,
+  `/privacy`, and `/terms`. Unknown paths receive the 404 document.
+- Completed metadata and the standard site shell: route titles, canonical and
+  social tags, 1200 × 630 product art, apple touch image, sitemap entry, four
+  header links, footer attribution/version, and response security headers.
+- Bumped the service-worker cache to `frequency-feel-v3` so the new shell
+  replaces the prior cached release.
+- Added the demo, claims, copy-audit, catalog-description, and visual
+  provenance records required by the factory contract.
 
-Completed: 2026-08-27
+## Verification
 
-Deploy type: static (`dist/`)
+From a clean `npm ci` setup on Node 22.23.2:
 
-## What was built
+- `npm test` — pass, 8/8 model tests.
+- `npm run build` — pass; `dist/` contains root `index.html`, `404.html`, and
+  `staticwebapp.config.json`.
+- `npm run test:browser` — pass: desktop and 390 px flows, populated demo,
+  normal playback, A/B, Bell EQ, keyboard, focus-on-route change, metadata,
+  real 404 behavior, Axe (0 serious/critical), reduced motion, and no console
+  errors before the expected 404 request.
+- `npm run test:claims` — pass, all 11 declared public claims. Every command
+  in `.factory/claims.json` was then run individually from the documented
+  setup and passed.
+- Local Lighthouse — Performance 100, Accessibility 100, Best Practices 100,
+  SEO 100; LCP 1.2 s and CLS 0. The report is at
+  `/work/.evidence/sf-frequency-feel-lighthouse.json`.
+- Final production bundle: JS 28.72 kB / 9.86 kB gzip and CSS 20.67 kB /
+  5.30 kB gzip. Both are below the static-product budgets.
 
-- A finished beginner listening lab for low-pass, high-pass, and bell EQ.
-- A deterministic, original four-second synthesized phrase made in Web Audio;
-  there are no uploads, microphones, remote audio files, or autoplay.
-- Smooth same-source A/B switching with a short Web Audio crossfade and
-  frequency-weighted energy normalization for the filtered path.
-- Logarithmic frequency, Q/resonance, bell gain, and conservative 18% default
-  in-app volume controls. The visible warning makes clear that device output is
-  outside the app's control.
-- A synchronized native-biquad SVG response map, beginner-language chart
-  alternative, pointer dragging, and Arrow/Home/End keyboard operation.
-- Three teaching presets, prediction guidance, validated shareable links,
-  invalid-link recovery, audio error messaging, and offline status.
-- Art-deco transit-poster design at desktop and 390 px, including a generated
-  original hero. Source/provenance and exact prompt are retained in
-  `assets/src/`; optimized WebP exports are 32 KB and 64 KB.
-- `/privacy` and `/terms` routes, no analytics/cookies/CDNs, a service worker,
-  Azure Static Web Apps history/security/cache configuration, robots file, and
-  sitemap.
+## Review finding disposition
 
-## How to run and deploy
+| Finding | Disposition |
+| --- | --- |
+| F1 demo sandbox | Fixed with the `/demo` sandbox, sample label, reset/start actions, separate `demo:` key, documentation, and regression check. |
+| F2 claims | Fixed with 11 listed claims and individually runnable clean commands. Earlier untested wording was either covered by these claims or removed when it was not a user-verifiable promise. |
+| F3 plain first screen | Fixed with “Hear and see filter changes,” the named beginner audience, sample action, and short privacy/offline/price facts. |
+| F4 404 | Fixed with `404.html`, `404.css`, and Static Web Apps `responseOverrides`; local deployment-shaped browser test receives HTTP 404. |
+| F5 metadata and skeleton | Fixed with complete metadata, social asset, app route titles, navigation, footer, `/demo` sitemap entry, and route-aware focus/announcement. |
+| F6 copy audit | Fixed with `.factory/copy-audit.md`; every landing sentence is ≤22 words and no banned terms remain. |
 
-```bash
-npm install
-npm test
-npm run build
-npm run preview
-```
+The earlier verification’s passing functional, accessibility, privacy, mobile,
+offline, and bundle observations were rechecked by the new browser and claim
+suite. The former live-Axe CSP note remains expected: a strict production CSP
+does not permit inline test injection, while the local browser test injects
+Axe and reports no serious or critical findings.
 
-The factory build command is `npm run build`. Output is `dist/`, and
-`dist/index.html` is present at that root. Deploy the contents of `dist/` to the
-configured Azure Static Web App; do not deploy `assets/src/`.
+## Known limits and next steps
 
-## Verification performed
-
-- `npm test`: 8/8 unit tests pass (frequency mapping, clamping, URL validation,
-  serialization, formatting, and explanations).
-- `npm run build`: passes with TypeScript strict mode and Vite 7. Production
-  bundles: 23.43 KB JS / 8.50 KB gzip; 17.62 KB CSS / 4.78 KB gzip.
-- Factory `verify-url.sh` against the production preview: HTTP 200, no console
-  errors, title and `lang`, one H1, main landmark, all image alts, all button
-  names. Desktop and 390 × 844 screenshots reviewed.
-- `npm run test:browser`: real synthesized playback, pause, A/B, bell gain,
-  live explanation, graph keyboard control, preset, privacy route, mobile
-  overflow, and offline reload all pass.
-- Axe browser integration: 0 serious or critical violations.
-- Final Lighthouse 12 mobile simulation: Performance **99**, Accessibility
-  **100**, Best Practices **100**, SEO **100**. Measured LCP **1.2 s**, FCP
-  **0.9 s**, CLS **0**, TBT **110 ms**, transfer **47 KiB**. INP is not
-  available from a single lab page load; interactive browser tests complete
-  without delay or errors.
-- Reduced-motion, focus-visible, 44 px targets, URL validation, no-audio support,
-  offline banner, and legal-route semantics were checked in implementation.
-
-Verification artifacts were created under the ignored `.factory/evidence/`
-directory in the worker environment.
-
-## Known gaps and next steps
-
-- Loudness matching is a deliberately lightweight spectral energy estimate,
-  appropriate for controlled teaching comparisons but not a mastering meter.
-- The launch success measure (70% correct on a five-question before/after test)
-  requires moderated first-time-user testing after deployment; no behavioral
-  analytics were added.
-- Browsers and output devices apply their own gain, EQ, and latency. The app
-  cannot infer physical listening level and makes no hearing-protection claim.
-- A future version could add a self-contained prediction quiz, provided it stays
-  local-first and does not turn the product into a production EQ rack.
+- The app’s level matching is a lightweight teaching estimate, not a mastering
+  meter.
+- Browser and output-device gain remain outside the app’s control. The visible
+  volume reminder makes no hearing-protection claim.
+- The brief’s five-question learning-success measure needs moderated
+  first-time-user testing. No behavioral analytics were added.
+- The researched brief is free; no paid offer exists, so no billing metadata
+  or unavailable checkout dependency is needed.
+- The branch push is complete. If the existing static deployment controller is
+  delayed, use its durable product deployment configuration to publish the
+  already-built `dist/` artifact; do not introduce a new target or credentials.

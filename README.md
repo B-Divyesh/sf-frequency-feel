@@ -1,77 +1,83 @@
 # Frequency Feel
 
-Frequency Feel is a local-first listening lab for beginner sound designers. It
-makes low-pass, high-pass, and bell EQ behavior tangible: move a control, watch
-the response curve, and switch between level-matched before/after playback of
-the same synthesized phrase.
+Hear and see filter changes before you use them in a track or game sound.
+Frequency Feel is for beginner sound designers learning how low-pass,
+high-pass, and bell EQ settings change a sound.
 
-The product is intentionally educational rather than a mastering tool. It does
-not accept uploads, use a microphone, make hearing-safety claims, or send audio
-off the device.
+Try the filled sample at [the demo route](/demo). It opens an 850 Hz low-pass
+setting that you can change or reset. Demo settings use their own browser key
+and never change a real session.
 
-Live site: [frequency-feel.sociobot.in](https://frequency-feel.sociobot.in)
+## What the lab does
 
-## What is included
+- Choose low-pass, high-pass, or bell EQ and see the response map update.
+- Compare Original and Filtered sound.
+- Move the response-map frequency control with Arrow, Home, and End.
+- Copy a link to the current filter setting. Invalid links return to a safe
+  default.
 
-- Three filter types with logarithmic frequency, Q, and bell gain controls
-- A live response map with a draggable and keyboard-operable filter stop
-- Conservative, opt-in Web Audio playback and a visible volume reminder
-- Smooth A/B switching through the same original synthetic loop
-- Frequency-weighted energy matching on the filtered signal
-- Beginner explanations and three exaggerated teaching presets
-- Shareable, validated parameter links
-- Responsive 390 px layout, legal routes, and an offline application shell
-- No analytics, cookies, third-party scripts, remote fonts, or user audio
+## Plain facts
 
-The product brief is in [`.factory/brief.json`](.factory/brief.json), the visual
-system and image provenance are in [`.factory/design.md`](.factory/design.md),
-and verification notes are in [`.factory/handoff.md`](.factory/handoff.md).
+- Works offline after the first visit.
+- Sound is generated in your browser. No upload or microphone is used.
+- No analytics, advertising requests, or cookies are used.
+- Sound starts only when you press Play and starts at 18% in-app volume.
+- Free to use. No account is required for the core learning flow.
+- Artwork was generated for this project.
 
 ## Run locally
 
 Requires Node.js 20 or newer.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Vite prints the local URL. Sound begins only after a user presses **Play the
-loop**.
+Vite prints the local URL. Open `/demo` for the one-click sample.
 
 ## Test and build
 
 ```bash
 npm test
 npm run build
-npm run preview
-```
-
-The production command is exactly `npm run build`. It writes the deployable
-static site to `dist/`, with `dist/index.html` at the root.
-
-The optional browser contract test covers Axe, mobile overflow, playback, A/B,
-keyboard graph control, presets, routes, and offline reload. Install Playwright's
-Chromium once, run `npm run preview` in another terminal, then run:
-
-```bash
-npx playwright install chromium
 npm run test:browser
 ```
 
-Set `PLAYWRIGHT_CHROMIUM_PATH` if Chromium is installed at a non-default path.
+`npm run build` writes the static deployment output to `dist/`, with
+`dist/index.html` at its root. `npm run test:browser` builds the app and checks
+the full browser flow against a local server that mirrors the known production
+routes and 404 response.
 
-## Architecture and privacy
+Every visitor-facing claim is listed in [`.factory/claims.json`](.factory/claims.json).
+Run all claim checks from a clean checkout with:
 
-This is a Vite + vanilla TypeScript static application. Web Audio synthesizes a
-deterministic four-second loop in memory and routes it through native biquad
-filters. Settings live in the page URL only. The service worker caches the
-compiled shell for offline use; clearing browser site data removes it.
+```bash
+npm run test:claims
+```
 
-Azure Static Web Apps uses `public/staticwebapp.config.json` for history
-fallbacks, immutable asset caching, and security headers. No infrastructure,
-DNS, billing, or product IDs are stored here.
+Each command listed in that manifest also works by itself. For example:
+
+```bash
+npm run test:claims -- --grep @claim:demo-sandbox
+```
+
+## Deploy
+
+Deploy the contents of `dist/` to the configured static host. Keep
+`staticwebapp.config.json` with the output: it declares known SPA routes,
+security headers, cache policy, and the designed 404 response.
+
+## Privacy and scope
+
+Frequency Feel is a filter-learning page, not a mastering or hearing-safety
+service. Read the [privacy page](/privacy) and [terms](/terms) for the full
+details.
+
+The researched opportunity is in [`.factory/brief.json`](.factory/brief.json).
+The visual system, original-art provenance, and social-card derivation are in
+[`.factory/design.md`](.factory/design.md).
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+[MIT](LICENSE)

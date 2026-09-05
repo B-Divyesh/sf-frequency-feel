@@ -97,3 +97,13 @@ Generated on 2026-08-27 with Azure OpenAI image deployment `factory-image` via
 `/opt/fleet/lib/gen-image.sh`. The exact asset prompt is stored beside the
 source PNG in `assets/src/hero-frequency-line.json`. Generated imagery is
 original to Frequency Feel and disclosed in the footer.
+
+## Social preview derivation
+
+The 1200 × 630 social preview at
+`public/assets/sf-frequency-feel-social.webp` is a centered 1200 × 630 crop
+of the reviewed original hero artwork. It keeps the filter gate, broad-to-fine
+wave, and speaker sun visible without adding text or a second visual language.
+It was derived on 2026-09-05 with ImageMagick from the reviewed WebP export;
+the 180 × 180 Apple touch image is a crop of that same preview. These are
+derivatives of the original Azure-generated project artwork, not stock assets.
